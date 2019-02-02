@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TodoList :todos='todos'/>
+    <Map/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Map from './components/Map.vue'
+import TodoList from './components/TodoList.vue'
+import axios from 'axios'
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    TodoList,
+    Map
+  },
+  created(){
+    axios.get('https://api.myjson.com/bins/19z6b0')
+    .then(response => (this.todos = response.data))
+    .catch(errors => this.errors = errors)
+  },
+  data() {
+    return {
+      todos: [],
+      errors: []
+    }
+  },
 }
 </script>
 
