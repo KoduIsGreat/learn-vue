@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import 'bootstrap/dist/css/bootstrap.css'
 // import { L } from 'vue2-leaflet';
 // import "leaflet/dist/leaflet.css";
 // delete L.Icon.Default.prototype._getIconUrl;

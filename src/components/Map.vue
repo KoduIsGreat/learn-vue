@@ -95,9 +95,6 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     innerClick () {
-      // eslint-disable-next-line
-      console.log("hello")
-
       alert('Click!');
     }
   }

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <TodoItem
-      v-for="item in todos" 
-      :key='item.id' 
-      :taskName="item.taskName"
-      :completed="item.completed"/>
+    <ul class='list-group'>
+      <TodoItem
+        class='list-group-item'
+        v-for="item in todos" 
+        :key='item.id'
+        :completeTodo='completeTodo' 
+        :removeTodo='removeTodo' 
+        :taskName="item.taskName"
+        :completed="item.completed"/>
+    </ul>
   </div>
 
 </template>
@@ -18,7 +23,9 @@ export default {
     TodoItem
   },
   props: {
-    todos: Array
+    todos: Array,
+    completeTodo: Function,
+    removeTodo: Function
   }
 }
 </script>
