@@ -46,8 +46,5 @@ export default {
   background-color:rgb(76, 180, 76);
   opacity: 0.2;
 }
-.remove-btn{
-  padding-left:150px;
-}
 </style>
 

@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       filterCompleted: false,
-      nextTodo:null,
       search: '',
       todos: [],
       errors: []
@@ -66,7 +65,8 @@ export default {
   methods:{
     addTask(e){
       this.todos.push({ 
-        id : this.todos.length+1, 
+        id : this.todos.length+1,
+        completed: false,
         taskName : e
       })
     },
