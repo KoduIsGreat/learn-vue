@@ -85,7 +85,7 @@ export default {
     EventBus.$on(Events.REMOVE_TASK, payload => this.removeTask(payload) )
     EventBus.$on(Events.COMPLETE_TASK, payload => this.completeTask(payload))
     EventBus.$on(Events.ADD_TASK, payload => this.addTask(payload))
-    EventBus.$on(Events.TOGGLE_FILTER, () => this.toggleFilter())
+    EventBus.$on(Events.TOGGLE_FILTER, (filter) => this.filterCompleted = filter)
     EventBus.$on(Events.UPDATE_FILTER, (search) => this.search = search)
   }
 }

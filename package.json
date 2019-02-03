@@ -10,7 +10,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
-    "bootstrap-vue": "^2.0.0-rc.11",
     "leaflet": "^1.4.0",
     "vue": "^2.5.22",
     "vue2-leaflet": "^1.2.3"

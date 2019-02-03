@@ -28,16 +28,17 @@ export default {
   props:{
     viewing: Number,
     total: Number,
-    filterCompleted: Boolean,
   },
   data(){
     return {
-      search: ''
+      search: '',
+      filterCompleted: false
     }
   },
   methods:{
     toggleFilter(){
-      EventBus.$emit(TOGGLE_FILTER)
+      this.filterCompleted = !this.filterCompleted
+      EventBus.$emit(TOGGLE_FILTER, this.filterCompleted)
     },
     changeFilterText(){
       EventBus.$emit(UPDATE_FILTER, this.search)
