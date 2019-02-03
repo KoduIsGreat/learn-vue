@@ -5,62 +5,34 @@
     </div>
     <div class="row controls">
       <div class ="col-sm-6">
-        <div class= "input-group mb-3">
-          <div class="input-group-prepend">
-            <button 
-              type="button" 
-              :disabled="nextTodo ? false: true"
-              @click="addTodo"
-              class="btn btn-outline-secondary"> Add todo!</button>
-          </div>
-          <input 
-            type="text"
-            class="form-control"
-            placeholder="What to do next..."
-            aria-label="Add Todo"
-            v-model="nextTodo"/>
-          <div class="input-group-append"> 
-            <span class="input-group-text"> Completed {{completed}}/{{todos.length}} tasks</span>
-          </div>
-        </div>
+        <AddTodo :completed='completed' :total='todos.length'/>
       </div>
       <div class="col-sm-6">
-        <div class= "input-group mb-3">
-          <div class="input-group-prepend">
-            <button 
-              type="checkbox"
-              @click="completedFilter"
-              v-bind:class='{active: filterCompleted}'
-              class="btn btn-outline-secondary">Filter Completed</button>
-          </div>
-          <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Type to filter..." 
-            aria-label="Filter"
-            v-model="search"/>
-          <div class="input-group-append"> 
-            <span class="input-group-text"> Viewing {{filteredTodos.length}}/{{todos.length}} tasks</span>
-          </div>
-        </div>
+        <FilterTodo 
+          :viewing='filteredTodos.length' 
+          :total='todos.length'
+          :filterComplete='filterCompleted'/>
       </div>
     </div>
-    <TodoList 
-      :todos='filteredTodos' 
-      :completeTodo='completeTodo' 
-      :removeTodo='removeTodo'/>
+    <TodoList :todos='filteredTodos'/>
     <!-- <Map/> -->
   </div>
 </template>
 
 <script>
 // import Map from './components/Map.vue'
-import TodoList from './components/TodoList.vue'
 import axios from 'axios'
+import TodoList from './components/TodoList.vue'
+import AddTodo from './components/AddTodo'
+import FilterTodo from './components/FilterTodo'
+import EventBus from './eventbus.js'
+import * as Events from './events.js'
 export default {
   name: 'app',
   components: {
     TodoList,
+    AddTodo,
+    FilterTodo
     // Map
   },
   created(){
@@ -79,7 +51,7 @@ export default {
   },
   computed:{
     filteredTodos(){
-      let filtered = this.filterCompleted ? 
+      const filtered = this.filterCompleted ? 
         this.todos.filter(todo => !todo.completed) : this.todos
       
       return filtered
@@ -92,23 +64,29 @@ export default {
     }
   },
   methods:{
-    addTodo(){
+    addTask(e){
       this.todos.push({ 
         id : this.todos.length+1, 
-        taskName : this.nextTodo
+        taskName : e
       })
-      this.nextTodo= null
     },
-    removeTodo(e){
+    removeTask(e){
       this.todos = this.todos.filter(todo => todo.taskName !== e)
     },
-    completeTodo(e){
+    completeTask(e){
       const idx = this.todos.findIndex(todo => todo.taskName === e)
       this.todos[idx].completed=true
     },
-    completedFilter(){
+    toggleFilter(){
       this.filterCompleted = !this.filterCompleted
     }
+  },
+  mounted(){
+    EventBus.$on(Events.REMOVE_TASK, payload => this.removeTask(payload) )
+    EventBus.$on(Events.COMPLETE_TASK, payload => this.completeTask(payload))
+    EventBus.$on(Events.ADD_TASK, payload => this.addTask(payload))
+    EventBus.$on(Events.TOGGLE_FILTER, () => this.toggleFilter())
+    EventBus.$on(Events.UPDATE_FILTER, (search) => this.search = search)
   }
 }
 </script>

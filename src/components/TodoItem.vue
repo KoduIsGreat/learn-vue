@@ -5,22 +5,28 @@
         {{taskName}}
       </div>
       <div v-if="!completed" class="col-sm-4">
-        <button @click="completeTodo(taskName)" class="btn btn-success"> Done</button>
-        <button @click="removeTodo(taskName)" class="btn btn-danger"> Remove</button>
+        <button @click="completeTask()" class="btn btn-success"> Done</button>
+        <button @click="removeTask()" class="btn btn-danger"> Remove</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import EventBus from '../eventbus.js'
 export default {
   name: 'TodoItem',
   props: {
-    removeTodo: Function,
-    completeTodo: Function,
     taskName: String,
     completed: Boolean
+  },
+  methods:{
+    removeTask(){
+      EventBus.$emit('task-removed', this.taskName)
+    },
+    completeTask(){
+      EventBus.$emit('task-completed', this.taskName)
+    }
   }
 }
 </script>
@@ -35,9 +41,9 @@ export default {
  margin-top: 5px;
 }
 .completed {
-  color:darkgreen;
-  background-color:grey;
-  opacity: 0.4;
+  color:black;
+  background-color:rgb(76, 180, 76);
+  opacity: 0.2;
 }
 .remove-btn{
   padding-left:150px;

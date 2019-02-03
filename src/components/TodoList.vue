@@ -5,8 +5,6 @@
         class='list-group-item'
         v-for="item in todos" 
         :key='item.id'
-        :completeTodo='completeTodo' 
-        :removeTodo='removeTodo' 
         :taskName="item.taskName"
         :completed="item.completed"/>
     </ul>
@@ -24,8 +22,6 @@ export default {
   },
   props: {
     todos: Array,
-    completeTodo: Function,
-    removeTodo: Function
   }
 }
 </script>

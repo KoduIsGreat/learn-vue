@@ -1,0 +1,5 @@
+export const ADD_TASK = 'task-add'
+export const REMOVE_TASK ='task-remove'
+export const COMPLETE_TASK = 'task-complete'
+export const TOGGLE_FILTER = 'filter-toggle'
+export const UPDATE_FILTER = 'filter-change-text'
