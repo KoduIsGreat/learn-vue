@@ -36,7 +36,10 @@
             placeholder="Type to filter..." 
             aria-label="Filter"
             v-model="search"/>
+          <div class="input-group-append"> 
+            <span class="input-group-text"> Viewing {{filteredTodos.length}}/{{todos.length}} tasks</span>
           </div>
+        </div>
       </div>
     </div>
     <TodoList 
@@ -73,10 +76,9 @@ export default {
   },
   computed:{
     filteredTodos(){
-      let filtered = this.todos;
-      if(this.filterCompleted){
-        filtered = filtered.filter(todo => !todo.completed)
-      }
+      let filtered = this.filterCompleted ? 
+        this.todos.filter(todo => !todo.completed) : this.todos
+      
       return filtered
             .filter(todo =>{
               return todo.taskName.toLowerCase().indexOf(this.search.toLowerCase()) > -1
@@ -96,8 +98,6 @@ export default {
     },
     completeTodo(e){
       const idx = this.todos.findIndex(todo => todo.taskName === e)
-      // eslint-disable-next-line
-      console.log(idx)
       this.todos[idx].completed=true
     },
     completedFilter(){
