@@ -19,6 +19,9 @@
             placeholder="What to do next..."
             aria-label="Add Todo"
             v-model="nextTodo"/>
+          <div class="input-group-append"> 
+            <span class="input-group-text"> Completed {{completed}}/{{todos.length}} tasks</span>
+          </div>
         </div>
       </div>
       <div class="col-sm-6">
@@ -83,6 +86,9 @@ export default {
             .filter(todo =>{
               return todo.taskName.toLowerCase().indexOf(this.search.toLowerCase()) > -1
             })
+    },
+    completed(){
+      return this.todos.filter(todo => todo.completed).length
     }
   },
   methods:{
