@@ -14,6 +14,7 @@
 
 <script>
 import EventBus from '../eventbus.js'
+import { REMOVE_TASK, COMPLETE_TASK} from '../events.js'
 export default {
   name: 'TodoItem',
   props: {
@@ -22,10 +23,10 @@ export default {
   },
   methods:{
     removeTask(){
-      EventBus.$emit('task-removed', this.taskName)
+      EventBus.$emit(REMOVE_TASK, this.taskName)
     },
     completeTask(){
-      EventBus.$emit('task-completed', this.taskName)
+      EventBus.$emit(COMPLETE_TASK, this.taskName)
     }
   }
 }
